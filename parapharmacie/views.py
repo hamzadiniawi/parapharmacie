@@ -1,4 +1,9 @@
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from django.utils import timezone
+# from ..myapp.models import Client
+from myapp.models import Client
+
 
 # Create your views here.
 def aboutus(request):
@@ -28,8 +33,40 @@ def index(request):
 def index2(request):
     return render(request, 'index2.html')
 
-def loginregister(request):
-    return render(request, 'loginregister.html')
+def register(request):
+    return render(request, 'register.html')
+
+def registration(request):
+    if request.method == 'POST':
+        # Retrieve form data
+        username = request.POST.get('user-name')
+        password = request.POST.get('user-password')
+        email = request.POST.get('email')
+        phone_number = request.POST.get('phone')
+        # address = request.POST.get('address')
+
+        # Create a new client object
+        client = Client.objects.create(
+            nom=username,
+            password=password,
+            email=email,
+            tel=phone_number,
+            # address=address,
+            username=username,
+            account_creation_date=timezone.now(),
+            role='regular'  # Default role is set to 'regular'
+        )
+
+        # Save the client object
+        client.save()
+
+        # Redirect to a success page or any other page after successful registration
+        return HttpResponseRedirect('/registration-successful/')  # Change this to your desired URL
+
+    return render(request, 'register.html')
+
+def login(request):
+    return render(request, 'login.html')
 
 def myaccount(request):
     return render(request, 'myaccount.html')

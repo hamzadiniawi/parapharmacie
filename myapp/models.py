@@ -27,7 +27,7 @@ class Actualite(models.Model):
     titre = models.CharField(max_length=255)
     text = models.TextField()
 
-    
+
 class Product(models.Model):
     id = models.AutoField(primary_key=True)
     nom = models.CharField(max_length=255)
