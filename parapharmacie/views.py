@@ -1,8 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.utils import timezone
-# from ..myapp.models import Client
 from myapp.models import Client
+from django.contrib.auth import authenticate, login as django_login
+from myapp.models import User
+from myapp.models import Manager
 
 
 # Create your views here.
@@ -64,8 +66,29 @@ def registration(request):
         return HttpResponseRedirect('/index/')  # Change this to your desired URL
     return render(request, 'register.html')
 
-def login(request):
+def loginpage(request):
     return render(request, 'login.html')
+
+def login(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        try:
+            user = User.objects.get(email=email, password=password)
+            if user.role == 'regular':
+                # Redirect to index.html
+                return redirect('index')
+            elif user.role == 'regular_manager':
+                # Redirect to managerdashboard.html
+                return redirect('managerdashboard')
+            else:
+                # Handle other roles or scenarios
+                pass
+        except User.DoesNotExist:
+            # Handle invalid credentials
+            pass
+    return render(request, 'login.html')
+
 
 def myaccount(request):
     return render(request, 'myaccount.html')
@@ -87,3 +110,6 @@ def shopinstagram(request):
 
 def wishlist(request):
     return render(request, 'wishlist.html')
+
+def managerdashboard(request):
+    return render(request, 'managerdashboard.html')

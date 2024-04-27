@@ -6,27 +6,25 @@ class User(models.Model):
     nom = models.CharField(max_length=255)
     prenom = models.CharField(max_length=255)
     email = models.EmailField()
+    password = models.CharField(max_length=255)
+    role = models.CharField(max_length=255)
 
 class Admin(User):
-    role = models.CharField(max_length=255)
+    department = models.CharField(max_length=255)
 
 class Manager(User):
     department = models.CharField(max_length=255)
-    role = models.CharField(max_length=255)
 
 class Client(User):
     address = models.TextField()
     tel = models.CharField(max_length=20)
     username = models.CharField(max_length=255)
-    password = models.CharField(max_length=255)
     account_creation_date = models.DateField()
-    role = models.CharField(max_length=255)
 
 class Actualite(models.Model):
     id_actualite = models.AutoField(primary_key=True)
     titre = models.CharField(max_length=255)
     text = models.TextField()
-
 
 class Product(models.Model):
     id = models.AutoField(primary_key=True)
