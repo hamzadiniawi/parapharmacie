@@ -61,8 +61,7 @@ def registration(request):
         client.save()
 
         # Redirect to a success page or any other page after successful registration
-        return HttpResponseRedirect('/registration-successful/')  # Change this to your desired URL
-
+        return HttpResponseRedirect('/index/')  # Change this to your desired URL
     return render(request, 'register.html')
 
 def login(request):
