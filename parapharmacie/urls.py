@@ -1,6 +1,9 @@
 from django.contrib import admin
 from django.urls import path
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 urlpatterns = [ 
     path('admin/', admin.site.urls),
@@ -27,4 +30,9 @@ urlpatterns = [
     path('shopinstagram/', views.shopinstagram, name='shopinstagram'),
     path('wishlist/', views.wishlist, name='wishlist'),
     path('managerdashboard/', views.managerdashboard, name='managerdashboard'),
-]
+    path('add_product/', views.add_product, name='add_product'),
+    path('delete_product/<int:product_id>/', views.delete_product, name='delete_product'),
+] 
+
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

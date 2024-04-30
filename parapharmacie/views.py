@@ -3,8 +3,9 @@ from django.http import HttpResponseRedirect
 from django.utils import timezone
 from myapp.models import Client
 from django.contrib.auth import authenticate, login as django_login
-from myapp.models import User
-from myapp.models import Manager
+from myapp.models import User, Category, Product, Manager
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
 
 
 # Create your views here.
@@ -112,4 +113,34 @@ def wishlist(request):
     return render(request, 'wishlist.html')
 
 def managerdashboard(request):
-    return render(request, 'managerdashboard.html')
+    products = Product.objects.all()
+    categories = Category.objects.all()
+    return render(request, 'managerdashboard.html', {'categories': categories, 'products': products})
+
+def add_product(request):
+    if request.method == 'POST':
+        nom = request.POST.get('nom')
+        description = request.POST.get('description')
+        prix = request.POST.get('prix')
+        quantite = request.POST.get('quantite')
+        image = request.FILES.get('image')
+        categorie_id = request.POST.get('categorie')
+
+        product = Product(
+            nom=nom,
+            description=description,
+            prix=prix,
+            quantite=quantite,
+            image=image,
+            categorie_id=categorie_id
+        )
+        product.save()
+        return redirect('managerdashboard')  # Assuming you have a view named 'product_list' to display the list of products
+    return render(request, 'add_product.html')
+
+def delete_product(request, product_id):
+    # Logic to delete the product from the database
+    product = Product.objects.get(pk=product_id)
+    product.delete()
+
+    return redirect('managerdashboard')
