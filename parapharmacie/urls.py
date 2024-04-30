@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path
 from . import views
 
-urlpatterns = [
+urlpatterns = [ 
     path('admin/', admin.site.urls),
     path('aboutus/', views.aboutus, name='aboutus'),
     path('blogDetails/', views.blogDetails, name='blogDetails'),
@@ -11,6 +11,7 @@ urlpatterns = [
     path('cart/', views.cart, name='cart'),
     path('comingsoon/', views.comingsoon, name='comingsoon'),
     path('contact/', views.contact, name='contact'),
+    path('', views.index, name='index'),
     path('index/', views.index, name='index'),
     path('index2/', views.index2, name='index2'),
     path('managerdashboard/', views.managerdashboard, name='managerdashboard'),

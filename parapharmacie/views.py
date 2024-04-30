@@ -87,7 +87,7 @@ def login(request):
         except User.DoesNotExist:
             # Handle invalid credentials
             pass
-    return render(request, 'login.html')
+    return render(request, 'index.html')
 
 
 def myaccount(request):
