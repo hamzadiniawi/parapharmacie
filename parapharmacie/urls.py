@@ -12,10 +12,7 @@ urlpatterns = [
     path('comingsoon/', views.comingsoon, name='comingsoon'),
     path('contact/', views.contact, name='contact'),
     path('', views.index, name='index'),
-<<<<<<< HEAD
     path('index/', views.index, name='index'),
-=======
->>>>>>> b692410e469b7a8d3fa5f4db02c23244c0cc9437
     path('index2/', views.index2, name='index2'),
     path('managerdashboard/', views.managerdashboard, name='managerdashboard'),
     path('register/', views.register, name='register'),
