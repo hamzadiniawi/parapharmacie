@@ -272,24 +272,17 @@ $(document).ready(function(){
 						</div>
 						<div class="col-xs-6">
 							<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Product</span></a>
-							<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
 						</div>
 					</div>
 				</div>
-                <table class="table table-striped table-hover">
+				<table class="table table-striped table-hover">
                     <thead>
                       <tr>
-                        <th>
-                          <span class="custom-checkbox">
-                            <input type="checkbox" id="selectAll">
-                            <label for="selectAll"></label>
-                          </span>
-                        </th>
+                        <th>Image</th>
                         <th>Name</th>
                         <th>Description</th>
                         <th>Prix</th>
                         <th>Quantite</th>
-                        <th>Image</th>
                         <th>Categorie</th>
                         <th>Actions</th>
                       </tr>
@@ -298,22 +291,16 @@ $(document).ready(function(){
                       {% for product in products %}
                       <tr>
                         <td>
-                          <span class="custom-checkbox">
-                            <input type="checkbox" id="checkbox{{ forloop.counter }}" name="options[]" value="{{ forloop.counter }}">
-                            <label for="checkbox{{ forloop.counter }}"></label>
-                          </span>
-                        </td>
-                        <td>{{ product.nom }}</td>
-                        <td>{{ product.description }}</td>
-                        <td>{{ product.prix }}</td>
-                        <td>{{ product.quantite }}</td>
-                        <td>
                             {% if product.image %}
                               <img src="{{ product.image.url }}" alt="Product Image" style="max-width: 100px;">
                             {% else %}
                               No Image Available
                             {% endif %}
-                          </td>
+                        </td>
+                        <td>{{ product.nom }}</td>
+                        <td>{{ product.description }}</td>
+                        <td>{{ product.prix }}</td>
+                        <td>{{ product.quantite }}</td>
                         <td>{{ product.categorie.nom }}</td>
                         <td>
                           <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
@@ -390,28 +377,39 @@ $(document).ready(function(){
 	<div id="editEmployeeModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form>
+				<form id="editProductForm">
 					<div class="modal-header">						
 						<h4 class="modal-title">Edit Product</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">					
 						<div class="form-group">
-							<label>Name</label>
-							<input type="text" class="form-control" required>
+							<label>nom</label>
+							<input type="text" class="form-control" name="nom" required>
 						</div>
 						<div class="form-group">
-							<label>Email</label>
-							<input type="email" class="form-control" required>
+							<label>description</label>
+							<textarea class="form-control" name="description" required></textarea>
+						</div>		
+						<div class="form-group">
+							<label>prix</label>
+							<input type="text" class="form-control" name="prix" required>
+						</div>		
+						<div class="form-group">
+							<label>quantite</label>
+							<input type="text" class="form-control" name="quantite" required>
 						</div>
 						<div class="form-group">
-							<label>Address</label>
-							<textarea class="form-control" required></textarea>
+							<label>Image</label>
+							<input type="file" name="image" class="form-control-file">
 						</div>
 						<div class="form-group">
-							<label>Phone</label>
-							<input type="text" class="form-control" required>
-						</div>					
+							<label>Categorie</label>
+							<select name="categorie" class="form-control">
+								{% for category in categories %}
+								<option value="{{ category.id }}">{{ category.nom }}</option>
+								{% endfor %}
+							</select>				
 					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
@@ -443,4 +441,25 @@ $(document).ready(function(){
 		</div>
 	</div>
 </body>
+<script>
+    // Add click event listener to edit buttons
+    document.querySelectorAll('.edit').forEach(function(editButton) {
+        editButton.addEventListener('click', function() {
+            // Get the row containing the product data
+            var row = this.closest('tr');
+            // Extract product data from the row
+            var nom = row.cells[1].textContent;
+            var description = row.cells[2].textContent;
+            var prix = row.cells[3].textContent;
+            var quantite = row.cells[4].textContent;
+            var categorie = row.cells[5].textContent.trim();
+            // Populate form inputs with product data
+            document.querySelector('#editProductForm input[name="nom"]').value = nom;
+            document.querySelector('#editProductForm textarea[name="description"]').value = description;
+            document.querySelector('#editProductForm input[name="prix"]').value = prix;
+            document.querySelector('#editProductForm input[name="quantite"]').value = quantite;
+            document.querySelector('#editProductForm select[name="categorie"]').value = categorie;
+        });
+    });
+</script>
 </html>
