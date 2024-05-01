@@ -279,6 +279,7 @@ $(document).ready(function(){
                     <thead>
                       <tr>
                         <th>Image</th>
+                        <th>Id</th>
                         <th>Name</th>
                         <th>Description</th>
                         <th>Prix</th>
@@ -297,6 +298,7 @@ $(document).ready(function(){
                               No Image Available
                             {% endif %}
                         </td>
+                        <td>{{ product.id }}</td>
                         <td>{{ product.nom }}</td>
                         <td>{{ product.description }}</td>
                         <td>{{ product.prix }}</td>
@@ -336,10 +338,10 @@ $(document).ready(function(){
                       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <div class="modal-body">					
-                      <div class="form-group">
-                        <label>Name</label>
-                        <input type="text" name="nom" class="form-control" required>
-                      </div>
+						<div class="form-group">
+						  <label>Name</label>
+						  <input type="text" name="nom" class="form-control" required>
+						</div>
                       <div class="form-group">
                         <label>Description</label>
                         <textarea name="description" class="form-control" required></textarea>
@@ -377,27 +379,32 @@ $(document).ready(function(){
 	<div id="editEmployeeModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form id="editProductForm">
+				<form id="editProductForm" action="{% url 'edit_product' %}" method="post" enctype="multipart/form-data">
+					{% csrf_token %}
 					<div class="modal-header">						
 						<h4 class="modal-title">Edit Product</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">					
 						<div class="form-group">
+							{% comment %} <label>id</label> {% endcomment %}
+							<input type="hidden" class="form-control" name="id" value="{{ product.id }}">
+						</div>
+						<div class="form-group">
 							<label>nom</label>
-							<input type="text" class="form-control" name="nom" required>
+							<input type="text" class="form-control" name="nom" value="{{ product.nom }}" required>
 						</div>
 						<div class="form-group">
 							<label>description</label>
-							<textarea class="form-control" name="description" required></textarea>
+							<textarea class="form-control" name="description" required>{{ product.description }}</textarea>
 						</div>		
 						<div class="form-group">
 							<label>prix</label>
-							<input type="text" class="form-control" name="prix" required>
+							<input type="text" class="form-control" name="prix" value="{{ product.prix }}" required>
 						</div>		
 						<div class="form-group">
 							<label>quantite</label>
-							<input type="text" class="form-control" name="quantite" required>
+							<input type="text" class="form-control" name="quantite" value="{{ product.quantite }}" required>
 						</div>
 						<div class="form-group">
 							<label>Image</label>
@@ -407,7 +414,7 @@ $(document).ready(function(){
 							<label>Categorie</label>
 							<select name="categorie" class="form-control">
 								{% for category in categories %}
-								<option value="{{ category.id }}">{{ category.nom }}</option>
+								<option value="{{ category.id }}" {% if product.categorie_id == category.id %} selected {% endif %}>{{ category.nom }}</option>
 								{% endfor %}
 							</select>				
 					</div>
@@ -448,12 +455,14 @@ $(document).ready(function(){
             // Get the row containing the product data
             var row = this.closest('tr');
             // Extract product data from the row
-            var nom = row.cells[1].textContent;
-            var description = row.cells[2].textContent;
-            var prix = row.cells[3].textContent;
-            var quantite = row.cells[4].textContent;
-            var categorie = row.cells[5].textContent.trim();
+            var id = row.cells[1].textContent;
+            var nom = row.cells[2].textContent;
+            var description = row.cells[3].textContent;
+            var prix = row.cells[4].textContent;
+            var quantite = row.cells[5].textContent;
+            var categorie = row.cells[6].textContent.trim();
             // Populate form inputs with product data
+            document.querySelector('#editProductForm input[name="id"]').value = id;
             document.querySelector('#editProductForm input[name="nom"]').value = nom;
             document.querySelector('#editProductForm textarea[name="description"]').value = description;
             document.querySelector('#editProductForm input[name="prix"]').value = prix;

@@ -32,6 +32,7 @@ urlpatterns = [
     path('managerdashboard/', views.managerdashboard, name='managerdashboard'),
     path('add_product/', views.add_product, name='add_product'),
     path('delete_product/<int:product_id>/', views.delete_product, name='delete_product'),
+    path('edit_product/', views.edit_product, name='edit_product'),
 ] 
 
 

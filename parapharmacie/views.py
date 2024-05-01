@@ -146,7 +146,7 @@ def add_product(request):
             categorie_id=categorie_id
         )
         product.save()
-        return redirect('managerdashboard')  # Assuming you have a view named 'product_list' to display the list of products
+        return redirect('managerdashboard')
     return render(request, 'add_product.html')
 
 def delete_product(request, product_id):
@@ -154,4 +154,35 @@ def delete_product(request, product_id):
     product = Product.objects.get(pk=product_id)
     product.delete()
 
+    return redirect('managerdashboard')
+
+
+def edit_product(request):
+    if request.method == 'POST':
+        id = request.POST.get('id')
+        nom = request.POST.get('nom')
+        description = request.POST.get('description')
+        prix = request.POST.get('prix')
+        quantite = request.POST.get('quantite')
+        image = request.FILES.get('image')
+        categorie_id = request.POST.get('categorie')
+
+        try:
+            product = Product.objects.get(pk=id)
+            product.nom = nom
+            product.description = description
+            product.prix = prix
+            product.quantite = quantite
+            product.categorie_id = categorie_id
+
+            if image:
+                product.image = image
+
+            product.save()
+
+            return redirect('managerdashboard')
+
+        except Product.DoesNotExist:
+            # Handle the case where the product with the given ID does not exist
+            pass
     return redirect('managerdashboard')
