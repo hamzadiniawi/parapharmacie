@@ -410,11 +410,16 @@
                     </div>
                     <div id="pro-2" class="tab-pane">
                         <div class="row mb-n10">
+                            {% for product in haircareProducts %}
                             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-10">
                                 <div class="product-wrap">
                                     <div class="product-img img-zoom mb-4">
                                         <a href="product-details.html">
-                                            <img class="default-img" src="{% static 'images/product/product-8.png'  %}" alt="">
+                                            {% if product.image %}
+                                            <img class="default-img" src="{{ product.image.url }}" alt="">
+                                            {% else %}
+                                            No Image Available
+                                            {% endif %}
                                         </a>
                                         <div class="product-action-wrap product-action-padding">
                                             <button title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal"><img class="injectable" src="{% static 'images/icon-img/eye.svg'  %}" alt=""></button>
@@ -423,162 +428,28 @@
                                         </div>
                                     </div>
                                     <div class="product-content text-center">
-                                        <h3><a href="product-details.html">OVERSIZED HOODED SWEATSHIRT</a></h3>
+                                        <h3><a href="product-details.html">{{ product.nom }}</a></h3>
                                         <div class="product-price">
-                                            <span>$39.99</span>
+                                            <span>${{ product.prix }}</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-10">
-                                <div class="product-wrap">
-                                    <div class="product-img img-zoom mb-4">
-                                        <a href="product-details.html">
-                                            <img class="default-img" src="{% static 'images/product/product-7.png'  %}" alt="">
-                                        </a>
-                                        <div class="product-action-wrap product-action-padding">
-                                            <button title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal"><img class="injectable" src="{% static 'images/icon-img/eye.svg'  %}" alt=""></button>
-                                            <button title="Add To Cart"><img class="injectable" src="{% static 'images/icon-img/bag-2.svg'  %}" alt=""></button>
-                                            <button title="Wishlist"><img class="injectable" src="{% static 'images/icon-img/heart.svg'  %}" alt=""></button>
-                                        </div>
-                                    </div>
-                                    <div class="product-content text-center">
-                                        <h3><a href="product-details.html">TEXTURED KNIT PANTS</a></h3>
-                                        <div class="product-price">
-                                            <span>$20.99</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-10">
-                                <div class="product-wrap">
-                                    <div class="product-img img-zoom mb-4">
-                                        <a href="product-details.html">
-                                            <img class="default-img" src="{% static 'images/product/product-6.png'  %}" alt="">
-                                        </a>
-                                        <div class="product-action-wrap product-action-padding">
-                                            <button title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal"><img class="injectable" src="{% static 'images/icon-img/eye.svg'  %}" alt=""></button>
-                                            <button title="Add To Cart"><img class="injectable" src="{% static 'images/icon-img/bag-2.svg'  %}" alt=""></button>
-                                            <button title="Wishlist"><img class="injectable" src="{% static 'images/icon-img/heart.svg'  %}" alt=""></button>
-                                        </div>
-                                    </div>
-                                    <div class="product-content text-center">
-                                        <h3><a href="product-details.html">FLANNEL SHIRT</a></h3>
-                                        <div class="product-price">
-                                            <span>$44.99</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-10">
-                                <div class="product-wrap">
-                                    <div class="product-img img-zoom mb-4">
-                                        <a href="product-details.html">
-                                            <img class="default-img" src="{% static 'images/product/product-5.png'  %}" alt="">
-                                        </a>
-                                        <div class="product-action-wrap product-action-padding">
-                                            <button title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal"><img class="injectable" src="{% static 'images/icon-img/eye.svg'  %}" alt=""></button>
-                                            <button title="Add To Cart"><img class="injectable" src="{% static 'images/icon-img/bag-2.svg'  %}" alt=""></button>
-                                            <button title="Wishlist"><img class="injectable" src="{% static 'images/icon-img/heart.svg'  %}" alt=""></button>
-                                        </div>
-                                    </div>
-                                    <div class="product-content text-center">
-                                        <h3><a href="product-details.html">TEXTURED WEAVE COAT</a></h3>
-                                        <div class="product-price">
-                                            <span>$55.99</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-10">
-                                <div class="product-wrap">
-                                    <div class="product-img img-zoom mb-4">
-                                        <a href="product-details.html">
-                                            <img class="default-img" src="{% static 'images/product/product-4.png'  %}" alt="">
-                                        </a>
-                                        <div class="product-action-wrap product-action-padding">
-                                            <button title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal"><img class="injectable" src="{% static 'images/icon-img/eye.svg'  %}" alt=""></button>
-                                            <button title="Add To Cart"><img class="injectable" src="{% static 'images/icon-img/bag-2.svg'  %}" alt=""></button>
-                                            <button title="Wishlist"><img class="injectable" src="{% static 'images/icon-img/heart.svg'  %}" alt=""></button>
-                                        </div>
-                                    </div>
-                                    <div class="product-content text-center">
-                                        <h3><a href="product-details.html">VERTICAL QUILTED OVERSHIRT</a></h3>
-                                        <div class="product-price">
-                                            <span>$10.99</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-10">
-                                <div class="product-wrap">
-                                    <div class="product-img img-zoom mb-4">
-                                        <a href="product-details.html">
-                                            <img class="default-img" src="{% static 'images/product/product-3.png'  %}" alt="">
-                                        </a>
-                                        <div class="product-action-wrap product-action-padding">
-                                            <button title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal"><img class="injectable" src="{% static 'images/icon-img/eye.svg'  %}" alt=""></button>
-                                            <button title="Add To Cart"><img class="injectable" src="{% static 'images/icon-img/bag-2.svg'  %}" alt=""></button>
-                                            <button title="Wishlist"><img class="injectable" src="{% static 'images/icon-img/heart.svg'  %}" alt=""></button>
-                                        </div>
-                                    </div>
-                                    <div class="product-content text-center">
-                                        <h3><a href="product-details.html">KNIT TECHNICAL FABRIC SNEAKERS</a></h3>
-                                        <div class="product-price">
-                                            <span>$80.99</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-10">
-                                <div class="product-wrap">
-                                    <div class="product-img img-zoom mb-4">
-                                        <a href="product-details.html">
-                                            <img class="default-img" src="{% static 'images/product/product-2.png'  %}" alt="">
-                                        </a>
-                                        <div class="product-action-wrap product-action-padding">
-                                            <button title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal"><img class="injectable" src="{% static 'images/icon-img/eye.svg'  %}" alt=""></button>
-                                            <button title="Add To Cart"><img class="injectable" src="{% static 'images/icon-img/bag-2.svg'  %}" alt=""></button>
-                                            <button title="Wishlist"><img class="injectable" src="{% static 'images/icon-img/heart.svg'  %}" alt=""></button>
-                                        </div>
-                                    </div>
-                                    <div class="product-content text-center">
-                                        <h3><a href="product-details.html">BOILED WOOL SWEATER</a></h3>
-                                        <div class="product-price">
-                                            <span>$90.99</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-10">
-                                <div class="product-wrap">
-                                    <div class="product-img img-zoom mb-4">
-                                        <a href="product-details.html">
-                                            <img class="default-img" src="{% static 'images/product/product-1.png'  %}" alt="">
-                                        </a>
-                                        <div class="product-action-wrap product-action-padding">
-                                            <button title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal"><img class="injectable" src="{% static 'images/icon-img/eye.svg'  %}" alt=""></button>
-                                            <button title="Add To Cart"><img class="injectable" src="{% static 'images/icon-img/bag-2.svg'  %}" alt=""></button>
-                                            <button title="Wishlist"><img class="injectable" src="{% static 'images/icon-img/heart.svg'  %}" alt=""></button>
-                                        </div>
-                                    </div>
-                                    <div class="product-content text-center">
-                                        <h3><a href="product-details.html">PLUSH BALLOON SLEEVE DRESS</a></h3>
-                                        <div class="product-price">
-                                            <span>$75.99</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                     <div id="pro-3" class="tab-pane">
                         <div class="row mb-n10">
+                            {% for product in nutritionalSupplementProducts %}
                             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-10">
                                 <div class="product-wrap">
                                     <div class="product-img img-zoom mb-4">
                                         <a href="product-details.html">
-                                            <img class="default-img" src="{% static 'images/product/product-4.png'  %}" alt="">
+                                            {% if product.image %}
+                                            <img class="default-img" src="{{ product.image.url }}" alt="">
+                                            {% else %}
+                                            No Image Available
+                                            {% endif %}
                                         </a>
                                         <div class="product-action-wrap product-action-padding">
                                             <button title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal"><img class="injectable" src="{% static 'images/icon-img/eye.svg'  %}" alt=""></button>
@@ -587,162 +458,28 @@
                                         </div>
                                     </div>
                                     <div class="product-content text-center">
-                                        <h3><a href="product-details.html">OVERSIZED HOODED SWEATSHIRT</a></h3>
+                                        <h3><a href="product-details.html">{{ product.nom }}</a></h3>
                                         <div class="product-price">
-                                            <span>$39.99</span>
+                                            <span>${{ product.prix }}</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-10">
-                                <div class="product-wrap">
-                                    <div class="product-img img-zoom mb-4">
-                                        <a href="product-details.html">
-                                            <img class="default-img" src="{% static 'images/product/product-3.png'  %}" alt="">
-                                        </a>
-                                        <div class="product-action-wrap product-action-padding">
-                                            <button title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal"><img class="injectable" src="{% static 'images/icon-img/eye.svg'  %}" alt=""></button>
-                                            <button title="Add To Cart"><img class="injectable" src="{% static 'images/icon-img/bag-2.svg'  %}" alt=""></button>
-                                            <button title="Wishlist"><img class="injectable" src="{% static 'images/icon-img/heart.svg'  %}" alt=""></button>
-                                        </div>
-                                    </div>
-                                    <div class="product-content text-center">
-                                        <h3><a href="product-details.html">TEXTURED KNIT PANTS</a></h3>
-                                        <div class="product-price">
-                                            <span>$20.99</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-10">
-                                <div class="product-wrap">
-                                    <div class="product-img img-zoom mb-4">
-                                        <a href="product-details.html">
-                                            <img class="default-img" src="{% static 'images/product/product-2.png'  %}" alt="">
-                                        </a>
-                                        <div class="product-action-wrap product-action-padding">
-                                            <button title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal"><img class="injectable" src="{% static 'images/icon-img/eye.svg'  %}" alt=""></button>
-                                            <button title="Add To Cart"><img class="injectable" src="{% static 'images/icon-img/bag-2.svg'  %}" alt=""></button>
-                                            <button title="Wishlist"><img class="injectable" src="{% static 'images/icon-img/heart.svg'  %}" alt=""></button>
-                                        </div>
-                                    </div>
-                                    <div class="product-content text-center">
-                                        <h3><a href="product-details.html">FLANNEL SHIRT</a></h3>
-                                        <div class="product-price">
-                                            <span>$44.99</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-10">
-                                <div class="product-wrap">
-                                    <div class="product-img img-zoom mb-4">
-                                        <a href="product-details.html">
-                                            <img class="default-img" src="{% static 'images/product/product-1.png'  %}" alt="">
-                                        </a>
-                                        <div class="product-action-wrap product-action-padding">
-                                            <button title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal"><img class="injectable" src="{% static 'images/icon-img/eye.svg'  %}" alt=""></button>
-                                            <button title="Add To Cart"><img class="injectable" src="{% static 'images/icon-img/bag-2.svg'  %}" alt=""></button>
-                                            <button title="Wishlist"><img class="injectable" src="{% static 'images/icon-img/heart.svg'  %}" alt=""></button>
-                                        </div>
-                                    </div>
-                                    <div class="product-content text-center">
-                                        <h3><a href="product-details.html">TEXTURED WEAVE COAT</a></h3>
-                                        <div class="product-price">
-                                            <span>$55.99</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-10">
-                                <div class="product-wrap">
-                                    <div class="product-img img-zoom mb-4">
-                                        <a href="product-details.html">
-                                            <img class="default-img" src="{% static 'images/product/product-8.png'  %}" alt="">
-                                        </a>
-                                        <div class="product-action-wrap product-action-padding">
-                                            <button title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal"><img class="injectable" src="{% static 'images/icon-img/eye.svg'  %}" alt=""></button>
-                                            <button title="Add To Cart"><img class="injectable" src="{% static 'images/icon-img/bag-2.svg'  %}" alt=""></button>
-                                            <button title="Wishlist"><img class="injectable" src="{% static 'images/icon-img/heart.svg'  %}" alt=""></button>
-                                        </div>
-                                    </div>
-                                    <div class="product-content text-center">
-                                        <h3><a href="product-details.html">VERTICAL QUILTED OVERSHIRT</a></h3>
-                                        <div class="product-price">
-                                            <span>$10.99</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-10">
-                                <div class="product-wrap">
-                                    <div class="product-img img-zoom mb-4">
-                                        <a href="product-details.html">
-                                            <img class="default-img" src="{% static 'images/product/product-7.png'  %}" alt="">
-                                        </a>
-                                        <div class="product-action-wrap product-action-padding">
-                                            <button title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal"><img class="injectable" src="{% static 'images/icon-img/eye.svg'  %}" alt=""></button>
-                                            <button title="Add To Cart"><img class="injectable" src="{% static 'images/icon-img/bag-2.svg'  %}" alt=""></button>
-                                            <button title="Wishlist"><img class="injectable" src="{% static 'images/icon-img/heart.svg'  %}" alt=""></button>
-                                        </div>
-                                    </div>
-                                    <div class="product-content text-center">
-                                        <h3><a href="product-details.html">KNIT TECHNICAL FABRIC SNEAKERS</a></h3>
-                                        <div class="product-price">
-                                            <span>$80.99</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-10">
-                                <div class="product-wrap">
-                                    <div class="product-img img-zoom mb-4">
-                                        <a href="product-details.html">
-                                            <img class="default-img" src="{% static 'images/product/product-6.png'  %}" alt="">
-                                        </a>
-                                        <div class="product-action-wrap product-action-padding">
-                                            <button title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal"><img class="injectable" src="{% static 'images/icon-img/eye.svg'  %}" alt=""></button>
-                                            <button title="Add To Cart"><img class="injectable" src="{% static 'images/icon-img/bag-2.svg'  %}" alt=""></button>
-                                            <button title="Wishlist"><img class="injectable" src="{% static 'images/icon-img/heart.svg'  %}" alt=""></button>
-                                        </div>
-                                    </div>
-                                    <div class="product-content text-center">
-                                        <h3><a href="product-details.html">BOILED WOOL SWEATER</a></h3>
-                                        <div class="product-price">
-                                            <span>$90.99</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-10">
-                                <div class="product-wrap">
-                                    <div class="product-img img-zoom mb-4">
-                                        <a href="product-details.html">
-                                            <img class="default-img" src="{% static 'images/product/product-5.png'  %}" alt="">
-                                        </a>
-                                        <div class="product-action-wrap product-action-padding">
-                                            <button title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal"><img class="injectable" src="{% static 'images/icon-img/eye.svg'  %}" alt=""></button>
-                                            <button title="Add To Cart"><img class="injectable" src="{% static 'images/icon-img/bag-2.svg'  %}" alt=""></button>
-                                            <button title="Wishlist"><img class="injectable" src="{% static 'images/icon-img/heart.svg'  %}" alt=""></button>
-                                        </div>
-                                    </div>
-                                    <div class="product-content text-center">
-                                        <h3><a href="product-details.html">PLUSH BALLOON SLEEVE DRESS</a></h3>
-                                        <div class="product-price">
-                                            <span>$75.99</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                     <div id="pro-4" class="tab-pane">
                         <div class="row mb-n10">
+                            {% for product in weightManagementProducts %}
                             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-10">
                                 <div class="product-wrap">
                                     <div class="product-img img-zoom mb-4">
                                         <a href="product-details.html">
-                                            <img class="default-img" src="{% static 'images/product/product-5.png'  %}" alt="">
+                                            {% if product.image %}
+                                            <img class="default-img" src="{{ product.image.url }}" alt="">
+                                            {% else %}
+                                            No Image Available
+                                            {% endif %}
                                         </a>
                                         <div class="product-action-wrap product-action-padding">
                                             <button title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal"><img class="injectable" src="{% static 'images/icon-img/eye.svg'  %}" alt=""></button>
@@ -751,162 +488,28 @@
                                         </div>
                                     </div>
                                     <div class="product-content text-center">
-                                        <h3><a href="product-details.html">OVERSIZED HOODED SWEATSHIRT</a></h3>
+                                        <h3><a href="product-details.html">{{ product.nom }}</a></h3>
                                         <div class="product-price">
-                                            <span>$39.99</span>
+                                            <span>${{ product.prix }}</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-10">
-                                <div class="product-wrap">
-                                    <div class="product-img img-zoom mb-4">
-                                        <a href="product-details.html">
-                                            <img class="default-img" src="{% static 'images/product/product-4.png'  %}" alt="">
-                                        </a>
-                                        <div class="product-action-wrap product-action-padding">
-                                            <button title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal"><img class="injectable" src="{% static 'images/icon-img/eye.svg'  %}" alt=""></button>
-                                            <button title="Add To Cart"><img class="injectable" src="{% static 'images/icon-img/bag-2.svg'  %}" alt=""></button>
-                                            <button title="Wishlist"><img class="injectable" src="{% static 'images/icon-img/heart.svg'  %}" alt=""></button>
-                                        </div>
-                                    </div>
-                                    <div class="product-content text-center">
-                                        <h3><a href="product-details.html">TEXTURED KNIT PANTS</a></h3>
-                                        <div class="product-price">
-                                            <span>$20.99</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-10">
-                                <div class="product-wrap">
-                                    <div class="product-img img-zoom mb-4">
-                                        <a href="product-details.html">
-                                            <img class="default-img" src="{% static 'images/product/product-2.png'  %}" alt="">
-                                        </a>
-                                        <div class="product-action-wrap product-action-padding">
-                                            <button title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal"><img class="injectable" src="{% static 'images/icon-img/eye.svg'  %}" alt=""></button>
-                                            <button title="Add To Cart"><img class="injectable" src="{% static 'images/icon-img/bag-2.svg'  %}" alt=""></button>
-                                            <button title="Wishlist"><img class="injectable" src="{% static 'images/icon-img/heart.svg'  %}" alt=""></button>
-                                        </div>
-                                    </div>
-                                    <div class="product-content text-center">
-                                        <h3><a href="product-details.html">FLANNEL SHIRT</a></h3>
-                                        <div class="product-price">
-                                            <span>$44.99</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-10">
-                                <div class="product-wrap">
-                                    <div class="product-img img-zoom mb-4">
-                                        <a href="product-details.html">
-                                            <img class="default-img" src="{% static 'images/product/product-3.png'  %}" alt="">
-                                        </a>
-                                        <div class="product-action-wrap product-action-padding">
-                                            <button title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal"><img class="injectable" src="{% static 'images/icon-img/eye.svg'  %}" alt=""></button>
-                                            <button title="Add To Cart"><img class="injectable" src="{% static 'images/icon-img/bag-2.svg'  %}" alt=""></button>
-                                            <button title="Wishlist"><img class="injectable" src="{% static 'images/icon-img/heart.svg'  %}" alt=""></button>
-                                        </div>
-                                    </div>
-                                    <div class="product-content text-center">
-                                        <h3><a href="product-details.html">TEXTURED WEAVE COAT</a></h3>
-                                        <div class="product-price">
-                                            <span>$55.99</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-10">
-                                <div class="product-wrap">
-                                    <div class="product-img img-zoom mb-4">
-                                        <a href="product-details.html">
-                                            <img class="default-img" src="{% static 'images/product/product-1.png'  %}" alt="">
-                                        </a>
-                                        <div class="product-action-wrap product-action-padding">
-                                            <button title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal"><img class="injectable" src="{% static 'images/icon-img/eye.svg'  %}" alt=""></button>
-                                            <button title="Add To Cart"><img class="injectable" src="{% static 'images/icon-img/bag-2.svg'  %}" alt=""></button>
-                                            <button title="Wishlist"><img class="injectable" src="{% static 'images/icon-img/heart.svg'  %}" alt=""></button>
-                                        </div>
-                                    </div>
-                                    <div class="product-content text-center">
-                                        <h3><a href="product-details.html">VERTICAL QUILTED OVERSHIRT</a></h3>
-                                        <div class="product-price">
-                                            <span>$10.99</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-10">
-                                <div class="product-wrap">
-                                    <div class="product-img img-zoom mb-4">
-                                        <a href="product-details.html">
-                                            <img class="default-img" src="{% static 'images/product/product-8.png'  %}" alt="">
-                                        </a>
-                                        <div class="product-action-wrap product-action-padding">
-                                            <button title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal"><img class="injectable" src="{% static 'images/icon-img/eye.svg'  %}" alt=""></button>
-                                            <button title="Add To Cart"><img class="injectable" src="{% static 'images/icon-img/bag-2.svg'  %}" alt=""></button>
-                                            <button title="Wishlist"><img class="injectable" src="{% static 'images/icon-img/heart.svg'  %}" alt=""></button>
-                                        </div>
-                                    </div>
-                                    <div class="product-content text-center">
-                                        <h3><a href="product-details.html">KNIT TECHNICAL FABRIC SNEAKERS</a></h3>
-                                        <div class="product-price">
-                                            <span>$80.99</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-10">
-                                <div class="product-wrap">
-                                    <div class="product-img img-zoom mb-4">
-                                        <a href="product-details.html">
-                                            <img class="default-img" src="{% static 'images/product/product-6.png'  %}" alt="">
-                                        </a>
-                                        <div class="product-action-wrap product-action-padding">
-                                            <button title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal"><img class="injectable" src="{% static 'images/icon-img/eye.svg'  %}" alt=""></button>
-                                            <button title="Add To Cart"><img class="injectable" src="{% static 'images/icon-img/bag-2.svg'  %}" alt=""></button>
-                                            <button title="Wishlist"><img class="injectable" src="{% static 'images/icon-img/heart.svg'  %}" alt=""></button>
-                                        </div>
-                                    </div>
-                                    <div class="product-content text-center">
-                                        <h3><a href="product-details.html">BOILED WOOL SWEATER</a></h3>
-                                        <div class="product-price">
-                                            <span>$90.99</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-10">
-                                <div class="product-wrap">
-                                    <div class="product-img img-zoom mb-4">
-                                        <a href="product-details.html">
-                                            <img class="default-img" src="{% static 'images/product/product-7.png'  %}" alt="">
-                                        </a>
-                                        <div class="product-action-wrap product-action-padding">
-                                            <button title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal"><img class="injectable" src="{% static 'images/icon-img/eye.svg'  %}" alt=""></button>
-                                            <button title="Add To Cart"><img class="injectable" src="{% static 'images/icon-img/bag-2.svg'  %}" alt=""></button>
-                                            <button title="Wishlist"><img class="injectable" src="{% static 'images/icon-img/heart.svg'  %}" alt=""></button>
-                                        </div>
-                                    </div>
-                                    <div class="product-content text-center">
-                                        <h3><a href="product-details.html">PLUSH BALLOON SLEEVE DRESS</a></h3>
-                                        <div class="product-price">
-                                            <span>$75.99</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                     <div id="pro-5" class="tab-pane">
                         <div class="row mb-n10">
+                            {% for product in skincareProducts %}
                             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-10">
                                 <div class="product-wrap">
                                     <div class="product-img img-zoom mb-4">
                                         <a href="product-details.html">
-                                            <img class="default-img" src="{% static 'images/product/product-3.png'  %}" alt="">
+                                            {% if product.image %}
+                                            <img class="default-img" src="{{ product.image.url }}" alt="">
+                                            {% else %}
+                                            No Image Available
+                                            {% endif %}
                                         </a>
                                         <div class="product-action-wrap product-action-padding">
                                             <button title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal"><img class="injectable" src="{% static 'images/icon-img/eye.svg'  %}" alt=""></button>
@@ -915,153 +518,14 @@
                                         </div>
                                     </div>
                                     <div class="product-content text-center">
-                                        <h3><a href="product-details.html">OVERSIZED HOODED SWEATSHIRT</a></h3>
+                                        <h3><a href="product-details.html">{{ product.nom }}</a></h3>
                                         <div class="product-price">
-                                            <span>$39.99</span>
+                                            <span>${{ product.prix }}</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-10">
-                                <div class="product-wrap">
-                                    <div class="product-img img-zoom mb-4">
-                                        <a href="product-details.html">
-                                            <img class="default-img" src="{% static 'images/product/product-1.png'  %}" alt="">
-                                        </a>
-                                        <div class="product-action-wrap product-action-padding">
-                                            <button title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal"><img class="injectable" src="{% static 'images/icon-img/eye.svg'  %}" alt=""></button>
-                                            <button title="Add To Cart"><img class="injectable" src="{% static 'images/icon-img/bag-2.svg'  %}" alt=""></button>
-                                            <button title="Wishlist"><img class="injectable" src="{% static 'images/icon-img/heart.svg'  %}" alt=""></button>
-                                        </div>
-                                    </div>
-                                    <div class="product-content text-center">
-                                        <h3><a href="product-details.html">TEXTURED KNIT PANTS</a></h3>
-                                        <div class="product-price">
-                                            <span>$20.99</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-10">
-                                <div class="product-wrap">
-                                    <div class="product-img img-zoom mb-4">
-                                        <a href="product-details.html">
-                                            <img class="default-img" src="{% static 'images/product/product-5.png'  %}" alt="">
-                                        </a>
-                                        <div class="product-action-wrap product-action-padding">
-                                            <button title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal"><img class="injectable" src="{% static 'images/icon-img/eye.svg'  %}" alt=""></button>
-                                            <button title="Add To Cart"><img class="injectable" src="{% static 'images/icon-img/bag-2.svg'  %}" alt=""></button>
-                                            <button title="Wishlist"><img class="injectable" src="{% static 'images/icon-img/heart.svg'  %}" alt=""></button>
-                                        </div>
-                                    </div>
-                                    <div class="product-content text-center">
-                                        <h3><a href="product-details.html">FLANNEL SHIRT</a></h3>
-                                        <div class="product-price">
-                                            <span>$44.99</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-10">
-                                <div class="product-wrap">
-                                    <div class="product-img img-zoom mb-4">
-                                        <a href="product-details.html">
-                                            <img class="default-img" src="{% static 'images/product/product-6.png'  %}" alt="">
-                                        </a>
-                                        <div class="product-action-wrap product-action-padding">
-                                            <button title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal"><img class="injectable" src="{% static 'images/icon-img/eye.svg'  %}" alt=""></button>
-                                            <button title="Add To Cart"><img class="injectable" src="{% static 'images/icon-img/bag-2.svg'  %}" alt=""></button>
-                                            <button title="Wishlist"><img class="injectable" src="{% static 'images/icon-img/heart.svg'  %}" alt=""></button>
-                                        </div>
-                                    </div>
-                                    <div class="product-content text-center">
-                                        <h3><a href="product-details.html">TEXTURED WEAVE COAT</a></h3>
-                                        <div class="product-price">
-                                            <span>$55.99</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-10">
-                                <div class="product-wrap">
-                                    <div class="product-img img-zoom mb-4">
-                                        <a href="product-details.html">
-                                            <img class="default-img" src="{% static 'images/product/product-4.png'  %}" alt="">
-                                        </a>
-                                        <div class="product-action-wrap product-action-padding">
-                                            <button title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal"><img class="injectable" src="{% static 'images/icon-img/eye.svg'  %}" alt=""></button>
-                                            <button title="Add To Cart"><img class="injectable" src="{% static 'images/icon-img/bag-2.svg'  %}" alt=""></button>
-                                            <button title="Wishlist"><img class="injectable" src="{% static 'images/icon-img/heart.svg'  %}" alt=""></button>
-                                        </div>
-                                    </div>
-                                    <div class="product-content text-center">
-                                        <h3><a href="product-details.html">VERTICAL QUILTED OVERSHIRT</a></h3>
-                                        <div class="product-price">
-                                            <span>$10.99</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-10">
-                                <div class="product-wrap">
-                                    <div class="product-img img-zoom mb-4">
-                                        <a href="product-details.html">
-                                            <img class="default-img" src="{% static 'images/product/product-7.png'  %}" alt="">
-                                        </a>
-                                        <div class="product-action-wrap product-action-padding">
-                                            <button title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal"><img class="injectable" src="{% static 'images/icon-img/eye.svg'  %}" alt=""></button>
-                                            <button title="Add To Cart"><img class="injectable" src="{% static 'images/icon-img/bag-2.svg'  %}" alt=""></button>
-                                            <button title="Wishlist"><img class="injectable" src="{% static 'images/icon-img/heart.svg'  %}" alt=""></button>
-                                        </div>
-                                    </div>
-                                    <div class="product-content text-center">
-                                        <h3><a href="product-details.html">KNIT TECHNICAL FABRIC SNEAKERS</a></h3>
-                                        <div class="product-price">
-                                            <span>$80.99</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-10">
-                                <div class="product-wrap">
-                                    <div class="product-img img-zoom mb-4">
-                                        <a href="product-details.html">
-                                            <img class="default-img" src="{% static 'images/product/product-2.png'  %}" alt="">
-                                        </a>
-                                        <div class="product-action-wrap product-action-padding">
-                                            <button title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal"><img class="injectable" src="{% static 'images/icon-img/eye.svg'  %}" alt=""></button>
-                                            <button title="Add To Cart"><img class="injectable" src="{% static 'images/icon-img/bag-2.svg'  %}" alt=""></button>
-                                            <button title="Wishlist"><img class="injectable" src="{% static 'images/icon-img/heart.svg'  %}" alt=""></button>
-                                        </div>
-                                    </div>
-                                    <div class="product-content text-center">
-                                        <h3><a href="product-details.html">BOILED WOOL SWEATER</a></h3>
-                                        <div class="product-price">
-                                            <span>$90.99</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-10">
-                                <div class="product-wrap">
-                                    <div class="product-img img-zoom mb-4">
-                                        <a href="product-details.html">
-                                            <img class="default-img" src="{% static 'images/product/product-5.png'  %}" alt="">
-                                        </a>
-                                        <div class="product-action-wrap product-action-padding">
-                                            <button title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal"><img class="injectable" src="{% static 'images/icon-img/eye.svg'  %}" alt=""></button>
-                                            <button title="Add To Cart"><img class="injectable" src="{% static 'images/icon-img/bag-2.svg'  %}" alt=""></button>
-                                            <button title="Wishlist"><img class="injectable" src="{% static 'images/icon-img/heart.svg'  %}" alt=""></button>
-                                        </div>
-                                    </div>
-                                    <div class="product-content text-center">
-                                        <h3><a href="product-details.html">PLUSH BALLOON SLEEVE DRESS</a></h3>
-                                        <div class="product-price">
-                                            <span>$75.99</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>

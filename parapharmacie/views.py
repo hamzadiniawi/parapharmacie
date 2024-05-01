@@ -34,7 +34,14 @@ def index(request):
     return render(request, 'index.html')
 
 def index2(request):
-    return render(request, 'index2.html')
+    haircareProducts = Product.objects.filter(categorie__nom='Haircare')
+    nutritionalSupplementProducts = Product.objects.filter(categorie__nom='Nutritional Supplement')
+    weightManagementProducts = Product.objects.filter(categorie__nom='Weight Management')
+    skincareProducts = Product.objects.filter(categorie__nom='Skincare')
+    return render(request, 'index2.html', {'haircareProducts': haircareProducts
+                                           , 'nutritionalSupplementProducts': nutritionalSupplementProducts
+                                           , 'weightManagementProducts': weightManagementProducts
+                                           ,'skincareProducts': skincareProducts})
 
 def register(request):
     return render(request, 'register.html')
