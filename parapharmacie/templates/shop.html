@@ -376,12 +376,9 @@
                                 <h3 class="sidebar-widget-title">Popular Tags</h3>
                                 <div class="sidebar-widget-tag">
                                     <ul>
-                                        <li><a href="#">Dresses</a></li>
-                                        <li><a href="#">Jean</a></li>
-                                        <li><a href="#">Beauty</a></li>
-                                        <li><a href="#">Jewelry</a></li>
-                                        <li><a href="#">Electronic</a></li>
-                                        <li><a href="#">Furniture</a></li>
+                                        {% for category in categories %}
+                                        <li><a href="#">{{ category.nom }}</a></li>
+                                        {% endfor %}
                                     </ul>
                                 </div>
                             </div>
@@ -590,5 +587,4 @@
     <!-- Main JS -->
     <script src="{% static 'js/main.js'  %}"></script>
 </body>
-
 </html>

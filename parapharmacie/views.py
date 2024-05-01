@@ -114,7 +114,8 @@ def shopfullwidth(request):
 
 def shop(request):
     products = Product.objects.all()
-    return render(request, 'shop.html', {'products': products})
+    categories = Category.objects.all()
+    return render(request, 'shop.html', {'products': products, 'categories': categories})
 
 def shopinstagram(request):
     return render(request, 'shopinstagram.html')
