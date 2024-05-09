@@ -91,6 +91,9 @@ def login(request):
             elif user.role == 'regular_manager':
                 # Redirect to managerdashboard.html
                 return redirect('managerdashboard')
+            elif user.role == 'regular_admin':
+                # Redirect to managerdashboard.html
+                return redirect('admindashboard')
             else:
                 # Handle other roles or scenarios
                 pass
@@ -128,6 +131,10 @@ def managerdashboard(request):
     categories = Category.objects.all()
     return render(request, 'managerdashboard.html', {'categories': categories, 'products': products})
 
+def admindashboard(request):
+    users = User.objects.all()
+    return render(request, 'admindashboard.html', {'users': users})
+
 def add_product(request):
     if request.method == 'POST':
         nom = request.POST.get('nom')
@@ -149,12 +156,38 @@ def add_product(request):
         return redirect('managerdashboard')
     return render(request, 'add_product.html')
 
+
+def add_user(request):
+    if request.method == 'POST':
+        nom = request.POST.get('nom')
+        prenom = request.POST.get('prenom')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        role = request.POST.get('role')
+
+        user = User(
+            nom=nom,
+            prenom=prenom,
+            email=email,
+            password=password,
+            role=role
+        )
+        user.save()
+        return redirect('admindashboard')
+    return render(request, 'add_user.html')
+
+
 def delete_product(request, product_id):
     # Logic to delete the product from the database
     product = Product.objects.get(pk=product_id)
     product.delete()
-
     return redirect('managerdashboard')
+
+def delete_user(request, user_id):
+    # Logic to delete the user from the database
+    user = User.objects.get(pk=user_id)
+    user.delete()
+    return redirect('admindashboard')
 
 
 def edit_product(request):
@@ -186,3 +219,31 @@ def edit_product(request):
             # Handle the case where the product with the given ID does not exist
             pass
     return redirect('managerdashboard')
+
+
+
+def edit_user(request):
+    if request.method == 'POST':
+        id = request.POST.get('id')
+        nom = request.POST.get('nom')
+        prenom = request.POST.get('prenom')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        role = request.POST.get('role')
+
+        try:
+            user = User.objects.get(pk=id)
+            user.nom = nom
+            user.prenom = prenom
+            user.email = email
+            user.password = password
+            user.role = role
+
+            user.save()
+
+            return redirect('admindashboard')
+
+        except User.DoesNotExist:
+            # Handle the case where the user with the given ID does not exist
+            pass
+    return redirect('admindashboard')

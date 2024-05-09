@@ -17,7 +17,6 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('index/', views.index, name='index'),
     path('index2/', views.index2, name='index2'),
-    path('managerdashboard/', views.managerdashboard, name='managerdashboard'),
     path('register/', views.register, name='register'),
     path('registration/', views.registration, name='registration'),
     path('loginpage/', views.loginpage, name='loginpage'),
@@ -33,6 +32,13 @@ urlpatterns = [
     path('add_product/', views.add_product, name='add_product'),
     path('delete_product/<int:product_id>/', views.delete_product, name='delete_product'),
     path('edit_product/', views.edit_product, name='edit_product'),
+    path('admindashboard/', views.admindashboard, name='admindashboard'),
+    path('add_user/', views.add_user, name='add_user'),
+    path('delete_user/<int:user_id>/', views.delete_user, name='delete_user'),
+    path('edit_user/', views.edit_user, name='edit_user'),
+
+
+
 ] 
 
 
