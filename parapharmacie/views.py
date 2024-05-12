@@ -1,3 +1,4 @@
+import os
 import requests
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
@@ -271,8 +272,8 @@ def chatbotpage(request):
 def chatbot(request):
     if request.method == 'POST':
         user_message = request.POST.get('message')
-        api_key = ''
-        endpoint = 'https://api.openai.com/v1/engines/davinci/completions'
+        api_key = os.environ.get('OPENAI_API_KEY')  # Fetch API key from environment variable
+        endpoint = 'https://api.openai.com/v1/engines/davinci/completions'  # Replace with your actual endpoint
         headers = {
             'Content-Type': 'application/json',
             'Authorization': f'Bearer {api_key}'
@@ -289,7 +290,6 @@ def chatbot(request):
             return JsonResponse({'error': 'Failed to get response from OpenAI'}, status=500)
     
     return JsonResponse({'error': 'Method not allowed'}, status=405)
-    
 
 
 def productdetails(request, product_id):
