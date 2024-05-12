@@ -35,7 +35,6 @@ class Product(models.Model):
     image = models.ImageField(upload_to='produits/')
     categorie = models.ForeignKey('Category', on_delete=models.CASCADE)
 
-
 class Comment(models.Model):
     content = models.TextField()
     attribute = models.CharField(max_length=255)

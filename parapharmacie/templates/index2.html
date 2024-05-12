@@ -1,4 +1,9 @@
 {% load static %}
+{% if not request.session.user_id %}
+    <script>
+        window.location.href = "{% url 'loginpage' %}";
+    </script>
+{% endif %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -238,10 +243,10 @@
                 </div>
                 <div class="tab-style-1 nav mb-10" data-aos="fade-up" data-aos-delay="300">
                     <a class="active" href="#pro-1" data-bs-toggle="tab">ALL </a>
-                    <a href="#pro-2" data-bs-toggle="tab" class=""> MEN </a>
-                    <a href="#pro-3" data-bs-toggle="tab" class=""> WOMEN </a>
-                    <a href="#pro-4" data-bs-toggle="tab"> KIDS </a>
-                    <a href="#pro-5" data-bs-toggle="tab"> SALE OFF </a>
+                    <a href="#pro-2" data-bs-toggle="tab" class=""> Haircare </a>
+                    <a href="#pro-3" data-bs-toggle="tab" class=""> Nutritional Supplement </a>
+                    <a href="#pro-4" data-bs-toggle="tab"> Weight Management </a>
+                    <a href="#pro-5" data-bs-toggle="tab"> Skincare </a>
                 </div>
                 <div class="tab-content jump padding-54-row-col">
                     <div id="pro-1" class="tab-pane active">
@@ -250,7 +255,7 @@
                             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-10">
                                 <div class="product-wrap">
                                     <div class="product-img img-zoom mb-4">
-                                        <a href="product-details.html">
+                                        <a href="{% url 'productdetails' product.id %}">
                                             {% if product.image %}
                                             <img class="default-img" src="{{ product.image.url }}" alt="">
                                             {% else %}
@@ -264,7 +269,7 @@
                                         </div>
                                     </div>
                                     <div class="product-content text-center">
-                                        <h3><a href="product-details.html">{{ product.nom }}</a></h3>
+                                        <h3><a href="{% url 'productdetails' product.id %}">{{ product.nom }}</a></h3>
                                         <div class="product-price">
                                             <span>${{ product.prix }}</span>
                                         </div>
@@ -280,7 +285,7 @@
                             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-10">
                                 <div class="product-wrap">
                                     <div class="product-img img-zoom mb-4">
-                                        <a href="product-details.html">
+                                        <a href="{% url 'productdetails' product.id %}">
                                             {% if product.image %}
                                             <img class="default-img" src="{{ product.image.url }}" alt="">
                                             {% else %}
@@ -294,7 +299,7 @@
                                         </div>
                                     </div>
                                     <div class="product-content text-center">
-                                        <h3><a href="product-details.html">{{ product.nom }}</a></h3>
+                                        <h3><a href="{% url 'productdetails' product.id %}">{{ product.nom }}</a></h3>
                                         <div class="product-price">
                                             <span>${{ product.prix }}</span>
                                         </div>
@@ -310,7 +315,7 @@
                             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-10">
                                 <div class="product-wrap">
                                     <div class="product-img img-zoom mb-4">
-                                        <a href="product-details.html">
+                                        <a href="{% url 'productdetails' product.id %}">
                                             {% if product.image %}
                                             <img class="default-img" src="{{ product.image.url }}" alt="">
                                             {% else %}
@@ -324,7 +329,7 @@
                                         </div>
                                     </div>
                                     <div class="product-content text-center">
-                                        <h3><a href="product-details.html">{{ product.nom }}</a></h3>
+                                        <h3><a href="{% url 'productdetails' product.id %}">{{ product.nom }}</a></h3>
                                         <div class="product-price">
                                             <span>${{ product.prix }}</span>
                                         </div>
@@ -340,7 +345,7 @@
                             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-10">
                                 <div class="product-wrap">
                                     <div class="product-img img-zoom mb-4">
-                                        <a href="product-details.html">
+                                        <a href="{% url 'productdetails' product.id %}">
                                             {% if product.image %}
                                             <img class="default-img" src="{{ product.image.url }}" alt="">
                                             {% else %}
@@ -354,7 +359,7 @@
                                         </div>
                                     </div>
                                     <div class="product-content text-center">
-                                        <h3><a href="product-details.html">{{ product.nom }}</a></h3>
+                                        <h3><a href="{% url 'productdetails' product.id %}">{{ product.nom }}</a></h3>
                                         <div class="product-price">
                                             <span>${{ product.prix }}</span>
                                         </div>
@@ -370,7 +375,7 @@
                             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-10">
                                 <div class="product-wrap">
                                     <div class="product-img img-zoom mb-4">
-                                        <a href="product-details.html">
+                                        <a href="{% url 'productdetails' product.id %}">
                                             {% if product.image %}
                                             <img class="default-img" src="{{ product.image.url }}" alt="">
                                             {% else %}
@@ -384,7 +389,7 @@
                                         </div>
                                     </div>
                                     <div class="product-content text-center">
-                                        <h3><a href="product-details.html">{{ product.nom }}</a></h3>
+                                        <h3><a href="{% url 'productdetails' product.id %}">{{ product.nom }}</a></h3>
                                         <div class="product-price">
                                             <span>${{ product.prix }}</span>
                                         </div>

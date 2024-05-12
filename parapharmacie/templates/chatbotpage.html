@@ -1,0 +1,28 @@
+<!-- HTML template -->
+
+<input type="text" id="user-message-input">
+<button id="send-message-btn">Send</button>
+<div id="chatbot-response"></div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Include jQuery library -->
+
+<script>
+    // Frontend JavaScript code
+
+    $(document).ready(function() {
+        $('#send-message-btn').on('click', function() {
+            var message = $('#user-message-input').val();
+            $.ajax({
+                url: '/chatbot/',
+                method: 'POST',
+                data: { message: message },
+                success: function(response) {
+                    $('#chatbot-response').text(response.response);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
+    });
+</script>

@@ -157,8 +157,8 @@
                 </div>
             </div>
         </div>
-        <div class="breadcrumb-area breadcrumb-padding-6">
-            <div class="container">
+        <div class="breadcrumb-area breadcrumb-padding-6" style="padding: 220px 0 0px;">
+            {% comment %} <div class="container">
                 <div class="breadcrumb-content text-center">
                     <div class="breadcrumb-title">
                         <h2>Login</h2>
@@ -173,7 +173,7 @@
                         <li>LOGIN</li>
                     </ul>
                 </div>
-            </div>
+            </div> {% endcomment %}
         </div>
         <div class="login-register-area pb-130">
             <div class="container">
@@ -189,6 +189,13 @@
                                 <div id="lg1" class="tab-pane active">
                                     <div class="login-form-container">
                                         <div class="login-register-form">
+                                            {% if messages %}
+                                            <div class="alert alert-danger">
+                                                {% for message in messages %}
+                                                    {{ message }}
+                                                {% endfor %}
+                                            </div>
+                                            {% endif %}
                                             <form action="{% url 'login' %}" method="POST">
                                                 {% csrf_token %}
                                                 <input type="text" name="email" placeholder="Email">

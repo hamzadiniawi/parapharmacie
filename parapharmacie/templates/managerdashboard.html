@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+{% if not request.session.user_id %}
+    <script>
+        window.location.href = "{% url 'loginpage' %}";
+    </script>
+{% endif %}
 <html lang="en">
 <head>
 <meta charset="utf-8">

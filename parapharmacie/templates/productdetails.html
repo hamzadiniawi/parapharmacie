@@ -1,4 +1,9 @@
 {% load static %}
+{% if not request.session.user_id %}
+    <script>
+        window.location.href = "{% url 'loginpage' %}";
+    </script>
+{% endif %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -209,9 +214,13 @@
                             <div class="pro-dec-big-img-slider">
                                 <div class="easyzoom-style">
                                     <div class="easyzoom easyzoom--overlay">
-                                        <a href="{% static 'images/product-details/b-large-1.png'  %}">
-                                            <img src="{% static 'images/product-details/large-1.png'  %}" alt="">
+                                        {% if product.image %}
+                                        <a href="{{ product.image.url }}">
+                                            <img src="{{ product.image.url }}" alt="">
                                         </a>
+                                        {% else %}
+                                            No Image Available
+                                        {% endif %}
                                     </div>
                                 </div>
                                 <div class="easyzoom-style">
@@ -280,11 +289,11 @@
                                     <span>In Stock</span>
                                 </div>
                             </div>
-                            <h2 data-aos="fade-up" data-aos-delay="300">PLUSH BALLOON SLEEVE DRESS</h2>
+                            <h2 data-aos="fade-up" data-aos-delay="300">{{ product.nom }}</h2>
                             <div class="product-details-price" data-aos="fade-up" data-aos-delay="400">
-                                <span>$49.99</span>
+                                <span>${{ product.prix }}</span>
                             </div>
-                            <p data-aos="fade-up" data-aos-delay="500">In elit risus, volutpat sed vestibulum sit amet, bibendum in lorem. Etiam aliquet convallis nibh at tempus. Proin gravida tincidunt egestas. Curabitur porta nibh ac enim semper, vitae pretium ante sollicitudin.</p>
+                            <p data-aos="fade-up" data-aos-delay="500">{{ product.description }}</p>
                             <div class="product-details-size clearfix">
                                 <select class="nice-select nice-select-style-1">
                                     <option>Select Size</option>
@@ -309,9 +318,13 @@
                                 <div class="product-quality">
                                     <input class="cart-plus-minus-box input-text qty text" name="qtybutton" value="1">
                                 </div>
-                                <div class="product-details-cart">
-                                    <a href="#">Add to cart</a>
-                                </div>
+                                <form method="post" action="{% url 'add_to_cart' product.id %}">
+                                    {% csrf_token %}    
+                                    <div class="product-details-cart">
+                                        <input type="hidden" name="product_id" value="{{ product.id }}">
+                                        <button type="submit">Add to cart</button>
+                                    </div>
+                                </form>
                             </div>
                             <div class="product-details-wishlist-compare" data-aos="fade-up" data-aos-delay="300">
                                 <div class="product-details-wishlist">
@@ -337,8 +350,7 @@
                                 <div class="product-details-meta">
                                     <span>Categories: </span>
                                     <ul>
-                                        <li><a href="#">Fashion,</a></li>
-                                        <li><a href="#">Under wear</a></li>
+                                        <li><a href="#">{{ product.categorie.nom }}</a></li>
                                     </ul>
                                 </div>
                                 <div class="product-details-meta">
@@ -353,7 +365,7 @@
                                 <div class="product-details-meta">
                                     <span>Product ID: </span>
                                     <ul>
-                                        <li>274</li>
+                                        <li>{{ product.id }}</li>
                                     </ul>
                                 </div>
                             </div>

@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 {% load static %}
+{% if not request.session.user_id %}
+    <script>
+        window.location.href = "{% url 'loginpage' %}";
+    </script>
+{% endif %}
 <html lang="en">
 
 <head>

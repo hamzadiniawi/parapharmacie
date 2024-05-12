@@ -1,11 +1,14 @@
+import requests
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.utils import timezone
 from myapp.models import Client
 from django.contrib.auth import authenticate, login as django_login
-from myapp.models import User, Category, Product, Manager
+from myapp.models import User, Category, Product, Manager, Cart, CartLine
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
+from django.http import JsonResponse
+from django.contrib import messages
 
 
 # Create your views here.
@@ -86,21 +89,33 @@ def login(request):
         try:
             user = User.objects.get(email=email, password=password)
             if user.role == 'regular':
+                request.session['user_id'] = user.id
                 # Redirect to index.html
                 return redirect('index')
             elif user.role == 'regular_manager':
+                request.session['user_id'] = user.id
                 # Redirect to managerdashboard.html
                 return redirect('managerdashboard')
             elif user.role == 'regular_admin':
+                request.session['user_id'] = user.id
                 # Redirect to managerdashboard.html
                 return redirect('admindashboard')
             else:
                 # Handle other roles or scenarios
                 pass
         except User.DoesNotExist:
+            messages.error(request, 'Invalid email or password.')
             # Handle invalid credentials
             pass
     return render(request, 'login.html')
+
+
+def logout_user(request):
+    # Delete the user_id key from the session
+    if 'user_id' in request.session:
+        del request.session['user_id']
+    # Redirect to the homepage or any other page after logout
+    return redirect('login')
 
 
 def myaccount(request):
@@ -247,3 +262,61 @@ def edit_user(request):
             # Handle the case where the user with the given ID does not exist
             pass
     return redirect('admindashboard')
+
+
+
+def chatbotpage(request):
+    return render(request, 'chatbotpage.html')
+
+def chatbot(request):
+    if request.method == 'POST':
+        user_message = request.POST.get('message')
+        api_key = 'sk-proj-1moMJ00LHMgITeECKinuT3BlbkFJKYEdvOttUtur2bGwxkUb'
+        endpoint = 'https://api.openai.com/v1/engines/davinci/completions'
+        headers = {
+            'Content-Type': 'application/json',
+            'Authorization': f'Bearer {api_key}'
+        }
+        data = {
+            'prompt': user_message,
+            'max_tokens': 150
+        }
+        response = requests.post(endpoint, json=data, headers=headers)
+        if response.status_code == 200:
+            chatbot_response = response.json()['choices'][0]['text']
+            return JsonResponse({'response': chatbot_response})
+        else:
+            return JsonResponse({'error': 'Failed to get response from OpenAI'}, status=500)
+    
+    return JsonResponse({'error': 'Method not allowed'}, status=405)
+    
+
+
+def productdetails(request, product_id):
+    # Logic to delete the user from the database
+    product = Product.objects.get(pk=product_id)
+    return render(request, 'productdetails.html', {'product': product})
+
+
+def add_to_cart(request, product_id):
+    if request.method == 'POST':
+        product_id = request.POST.get('product_id')
+        if product_id:
+            product = Product.objects.get(pk=product_id)
+            # Retrieve user object using user_id stored in session
+            user_id = request.session.get('user_id')
+            if user_id:
+                user = User.objects.get(pk=user_id)
+                cart, created = Cart.objects.get_or_create(utilisateur=user)
+                cart_line, created = CartLine.objects.get_or_create(
+                    panier=cart,
+                    produit=product,
+                    defaults={'quantite': 1}
+                )
+                if not created:
+                    cart_line.quantite += 1
+                    cart_line.save()
+    return redirect('cart')  # Redirect to the cart page after adding to cart
+
+
+
