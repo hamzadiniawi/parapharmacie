@@ -37,7 +37,6 @@ urlpatterns = [
     path('delete_user/<int:user_id>/', views.delete_user, name='delete_user'),
     path('edit_user/', views.edit_user, name='edit_user'),
     path('chatbotpage/', views.chatbotpage, name='chatbotpage'),
-    path('chatbot/', views.chatbot, name='chatbot'),
     path('productdetails/<int:product_id>', views.productdetails, name='productdetails'),
     path('add_to_cart/<int:product_id>', views.add_to_cart, name='add_to_cart'),
     path('logout/', views.logout_user, name='logout'),
