@@ -271,7 +271,7 @@ def chatbotpage(request):
 def chatbot(request):
     if request.method == 'POST':
         user_message = request.POST.get('message')
-        api_key = 'sk-proj-1moMJ00LHMgITeECKinuT3BlbkFJKYEdvOttUtur2bGwxkUb'
+        api_key = ''
         endpoint = 'https://api.openai.com/v1/engines/davinci/completions'
         headers = {
             'Content-Type': 'application/json',
