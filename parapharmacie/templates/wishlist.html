@@ -32,10 +32,9 @@
     <link rel="stylesheet" href="{% static 'css/plugins/nice-select.css'  %}" />
     <link rel="stylesheet" href="{% static 'css/style.css'  %}" />
 </head>
-
 <body>
     <div class="main-wrapper wrapper-2">
-        <header class="header-area section-padding-lr-1 header-height-1 transparent-bar header-padding-tb sticky-bar sticky-white-bg">
+        <header class="header-area section-padding-lr-1 transparent-bar header-padding-tb sticky-bar sticky-white-bg">
             <div class="container-fluid">
                 <div class="row align-items-center">
                     <div class="col-4">
@@ -48,11 +47,27 @@
                     </div>
                     <div class="col-4">
                         <div class="logo text-center">
-                            <a href="index.html"><img src="{% static 'images/logo/logo-2.png'  %}" alt="logo"></a>
+                            <a href="index.html"><img src="{% static 'images/logo/logo.png'  %}" alt="logo"></a>
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="header-action-wrap">
+
+
+                            <div class="header-action-cart" id="header-action-cart" style="margin-left:78px !important; margin-right:0px !important;">
+                                <h2 data-aos="fade-up" data-aos-delay="200" >
+                                    {% if request.session.user_id %}
+                                        {% with user=request.user %}
+                                            Welcome {{ user.username }}
+                                        {% endwith %}
+                                    {% else %}
+                                        None
+                                    {% endif %}
+                                </h2>        
+                            </div>
+                            <div class="header-action-cart">
+                                <a href="{% url 'logout' %}"><img src="{% static 'images/logo/logout_icon.png' %}" alt="Logout"></a>
+                            </div>
                             <div class="header-action-cart">
                                 <a class="cart-active" href="#">
                                     <img class="injectable" src="{% static 'images/icon-img/bag.svg'  %}" alt="">

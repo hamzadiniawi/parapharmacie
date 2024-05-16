@@ -198,11 +198,11 @@
                                             {% endif %}
                                             <form action="{% url 'login' %}" method="POST">
                                                 {% csrf_token %}
-                                                <input type="text" name="email" placeholder="Email">
-                                                <input type="password" name="password" placeholder="Password">
+                                                <input type="text" name="email" placeholder="Email" required>
+                                                <input type="password" name="password" placeholder="Password" required>
                                                 <div class="button-box">
                                                     <div class="login-toggle-btn">
-                                                        <input type="checkbox">
+                                                        <input type="checkbox" name="remember_me">
                                                         <label>Remember me</label>
                                                         <a href="#">Forgot Password?</a>
                                                     </div>

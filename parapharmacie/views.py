@@ -83,6 +83,7 @@ def registration(request):
 def loginpage(request):
     return render(request, 'login.html')
 
+
 def login(request):
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -91,23 +92,18 @@ def login(request):
             user = User.objects.get(email=email, password=password)
             if user.role == 'regular':
                 request.session['user_id'] = user.id
-                # Redirect to index.html
                 return redirect('index')
             elif user.role == 'regular_manager':
                 request.session['user_id'] = user.id
-                # Redirect to managerdashboard.html
                 return redirect('managerdashboard')
             elif user.role == 'regular_admin':
                 request.session['user_id'] = user.id
-                # Redirect to managerdashboard.html
                 return redirect('admindashboard')
             else:
                 # Handle other roles or scenarios
                 pass
         except User.DoesNotExist:
             messages.error(request, 'Invalid email or password.')
-            # Handle invalid credentials
-            pass
     return render(request, 'login.html')
 
 
