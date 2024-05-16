@@ -265,7 +265,6 @@ def edit_user(request):
 def chatbotpage(request):
     return render(request, 'chatbotpage.html')
 
-
 def productdetails(request, product_id):
     # Logic to delete the user from the database
     product = Product.objects.get(pk=product_id)
