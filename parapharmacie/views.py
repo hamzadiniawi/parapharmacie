@@ -26,6 +26,10 @@ def blog(request):
 def checkout(request):
     return render(request, 'checkout.html')
 
+def chatbot(request):
+    return render(request, 'chatbot.html')
+
+
 @login_required
 def cart(request):
     user_id = request.session.get('user_id')

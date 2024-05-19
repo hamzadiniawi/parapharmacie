@@ -32,6 +32,8 @@
     <link rel="stylesheet" href="{% static 'css/plugins/aos.css'  %}" />
     <link rel="stylesheet" href="{% static 'css/plugins/nice-select.css'  %}" />
     <link rel="stylesheet" href="{% static 'css/style.css'  %}" />
+    <link rel="stylesheet" href="{% static 'css/chatbot.css'  %}" />
+    
 </head>
 <body>
     <div class="main-wrapper wrapper-2">
@@ -136,6 +138,7 @@
                 <div class="menu-wrap">
                     <div id="menu" class="slinky-mobile-menu text-left">
                         <ul>
+                            
                             <li>
                                 <a href="#">HOME</a>
                                 <ul>
@@ -499,7 +502,20 @@
                 </div>
             </div>
         </footer>
+        <a id="scrollUp" style="position: fixed; z-index: 2147483647;"><a id="scrollUp" style="position: fixed; z-index: 2147483647;"><i class="las la-angle-up"></i></a></a>
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
     <!-- Global Vendor, plugins JS -->
     <script src="{% static 'js/vendor/modernizr-3.11.2.min.js'  %}"></script>
     <script src="{% static 'js/vendor/jquery-3.5.1.min.js'  %}"></script>
@@ -514,12 +530,14 @@
     <script src="{% static 'js/plugins/countdown.js'  %}"></script>
     <script src="{% static 'js/plugins/magnific-popup.js'  %}"></script>
     <script src="{% static 'js/plugins/easyzoom.js'  %}"></script>
-    <script src="{% static 'js/plugins/scrollup.js'  %}"></script>
+    {% comment %} <script src="{% static 'js/plugins/scrollup.js'  %}"></script> {% endcomment %}
     <script src="{% static 'js/plugins/aos.js'  %}"></script>
     <script src="{% static 'js/plugins/select2.min.js'  %}"></script>
     <script src="{% static 'js/plugins/jquery.nice-select.min.js'  %}"></script>
     <!-- Main JS -->
     <script src="{% static 'js/main.js'  %}"></script>
+
+
 </body>
 
 </html>
