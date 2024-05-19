@@ -1,7 +1,7 @@
 import os
 import requests
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.http import HttpResponseRedirect
 from django.utils import timezone
 from myapp.models import Client
@@ -40,7 +40,9 @@ def cart(request):
     for cart_line in cart_lines:
         cart_line.subtotal = cart_line.produit.prix * cart_line.quantite
     total = sum(cart_line.subtotal for cart_line in cart_lines)
-    return render(request, 'cart.html', {'cart_lines': cart_lines, 'total': total})
+    response = chatbot(request)  # Call the chatbot view
+    chatbot_content = response.content.decode('utf-8')
+    return render(request, 'cart.html', {'cart_lines': cart_lines, 'total': total, 'chatbot_content': chatbot_content})
 
 
 
