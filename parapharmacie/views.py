@@ -1,15 +1,16 @@
 import os
 import requests
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.utils import timezone
 from myapp.models import Client
 from django.contrib.auth import authenticate, login as django_login
-from myapp.models import User, Category, Product, Manager, Cart, CartLine
+from myapp.models import User, Category, Product, Manager, Cart, CartLine, Order, OrderLine, Delivery
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
-from django.http import JsonResponse
 from django.contrib import messages
+from django.shortcuts import get_object_or_404
 
 
 # Create your views here.
@@ -25,8 +26,20 @@ def blog(request):
 def checkout(request):
     return render(request, 'checkout.html')
 
+@login_required
 def cart(request):
-    return render(request, 'cart.html')
+    user_id = request.session.get('user_id')
+    user = User.objects.get(pk=user_id)
+    user_cart = Cart.objects.filter(utilisateur=user)
+    cart_lines = CartLine.objects.filter(panier__in=user_cart)
+    # Calculate subtotal for each cart line
+    for cart_line in cart_lines:
+        cart_line.subtotal = cart_line.produit.prix * cart_line.quantite
+    total = sum(cart_line.subtotal for cart_line in cart_lines)
+    return render(request, 'cart.html', {'cart_lines': cart_lines, 'total': total})
+
+
+
 
 def comingsoon(request):
     return render(request, 'comingsoon.html')
@@ -35,7 +48,16 @@ def contact(request):
     return render(request, 'contact.html')
 
 def index(request):
-    return render(request, 'index.html')
+    products = Product.objects.all()
+    haircareProducts = Product.objects.filter(categorie__nom='Haircare')
+    nutritionalSupplementProducts = Product.objects.filter(categorie__nom='Nutritional Supplement')
+    weightManagementProducts = Product.objects.filter(categorie__nom='Weight Management')
+    skincareProducts = Product.objects.filter(categorie__nom='Skincare')
+    return render(request, 'index.html', {'products': products
+                                           , 'haircareProducts': haircareProducts
+                                           , 'nutritionalSupplementProducts': nutritionalSupplementProducts
+                                           , 'weightManagementProducts': weightManagementProducts
+                                           ,'skincareProducts': skincareProducts})
 
 def index2(request):
     products = Product.objects.all()
@@ -289,7 +311,46 @@ def add_to_cart(request, product_id):
                 if not created:
                     cart_line.quantite += 1
                     cart_line.save()
-    return redirect('cart')  # Redirect to the cart page after adding to cart
+    return redirect('cart')  
 
 
 
+@require_POST
+def remove_cart_line(request, cart_line_id):
+    cart_line = get_object_or_404(CartLine, id=cart_line_id)
+    cart_line.delete()
+    return redirect('cart')
+
+
+
+
+@login_required
+def place_order(request):
+    if request.method == 'POST':
+        user_id = request.session.get('user_id')
+        user = User.objects.get(pk=user_id)
+        user_cart = Cart.objects.filter(utilisateur=user)
+        cart_lines = CartLine.objects.filter(panier__in=user_cart)
+
+        # Create the order
+        order = Order.objects.create(utilisateur=user, date_commande=timezone.now())
+
+        # Create order lines and remove products from the cart
+        for cart_line in cart_lines:
+            OrderLine.objects.create(commande=order, produit=cart_line.produit, quantite=cart_line.quantite)
+            cart_line.delete()  # Remove the product from the cart
+
+        # Get the address information from the POST data
+        region = request.POST.get('region')
+        city = request.POST.get('city')
+        zip_code = request.POST.get('zip_code')
+        address = f"{region} | {city} | {zip_code}"
+
+        # Create the delivery entry
+        Delivery.objects.create(commande=order, adresse=address)
+
+        # Redirect to a thank you page or order summary page
+        messages.success(request, 'Order Succeed.')
+        return redirect('cart')
+
+    return redirect('cart')  # If not a POST request, redirect to the cart page

@@ -4,6 +4,7 @@
         window.location.href = "{% url 'loginpage' %}";
     </script>
 {% endif %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -179,8 +180,8 @@
             </div>
         </div>
         <div class="breadcrumb-area breadcrumb-padding-6">
-            <div class="container">
-                <div class="breadcrumb-content text-center">
+            {% comment %}<div class="container">
+                 <div class="breadcrumb-content text-center">
                     <div class="breadcrumb-title">
                         <h2>Cart Page </h2>
                     </div>
@@ -193,8 +194,8 @@
                         </li>
                         <li>CART </li>
                     </ul>
-                </div>
-            </div>
+                </div> 
+            </div>{% endcomment %}
         </div>
         <div class="cart-area pb-130">
             <div class="container">
@@ -203,6 +204,13 @@
                         <form action="#">
                             <div class="cart-table-content">
                                 <div class="table-content table-responsive">
+                                    {% if messages %}
+                                    <div class="alert alert-success">
+                                        {% for message in messages %}
+                                            {{ message }}
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
                                     <table>
                                         <thead>
                                             <tr>
@@ -215,54 +223,31 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            {% for cart_line in cart_lines %}
                                             <tr>
                                                 <td class="product-thumbnail">
-                                                    <a href="product-details.html"><img src="{% static 'images/cart/cart-1.jpg'  %}" alt=""></a>
+                                                    <a href="#"><img src="{{ cart_line.produit.image.url }}" alt=""></a>
                                                 </td>
                                                 <td class="product-name">
-                                                    <h5><a href="product-details.html">Cara Portable Air Compressor</a></h5>
+                                                    <h5><a href="#">{{ cart_line.produit.nom }}</a></h5>
                                                 </td>
-                                                <td class="product-price"><span class="amount">$120.00</span></td>
+                                                <td class="product-price"><span class="amount">${{ cart_line.produit.prix }}</span></td>
                                                 <td class="cart-quality">
                                                     <div class="product-quality">
-                                                        <input class="cart-plus-minus-box input-text qty text" name="qtybutton" value="1">
+                                                        <input class="cart-plus-minus-box input-text qty text" name="qtybutton" value="{{ cart_line.quantite }}">
                                                     </div>
                                                 </td>
-                                                <td class="product-total"><span>$120.00</span></td>
-                                                <td class="product-remove"><a href="#"><i class="las la-trash"></i></a></td>
+                                                <td class="product-total"><span>${{ cart_line.subtotal }}</span></td>
+                                                <td class="product-remove">
+                                                    <form action="{% url 'remove_cart_line' cart_line.id %}" method="post" class="remove-cart-item-form">
+                                                        {% csrf_token %}
+                                                        <button type="submit" class="remove-cart-item-btn">
+                                                            <i class="las la-trash"></i>
+                                                        </button>
+                                                    </form>
+                                                </td>
                                             </tr>
-                                            <tr>
-                                                <td class="product-thumbnail">
-                                                    <a href="product-details.html"><img src="{% static 'images/cart/cart-2.jpg'  %}" alt=""></a>
-                                                </td>
-                                                <td class="product-name">
-                                                    <h5><a href="product-details.html">Cara Portable Air Compressor</a></h5>
-                                                </td>
-                                                <td class="product-price"><span class="amount">$120.00</span></td>
-                                                <td class="cart-quality">
-                                                    <div class="product-quality">
-                                                        <input class="cart-plus-minus-box input-text qty text" name="qtybutton" value="1">
-                                                    </div>
-                                                </td>
-                                                <td class="product-total"><span>$120.00</span></td>
-                                                <td class="product-remove"><a href="#"><i class="las la-trash"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="product-thumbnail">
-                                                    <a href="product-details.html"><img src="{% static 'images/cart/cart-3.jpg'  %}" alt=""></a>
-                                                </td>
-                                                <td class="product-name">
-                                                    <h5><a href="product-details.html">Cara Portable Air Compressor</a></h5>
-                                                </td>
-                                                <td class="product-price"><span class="amount">$120.00</span></td>
-                                                <td class="cart-quality">
-                                                    <div class="product-quality">
-                                                        <input class="cart-plus-minus-box input-text qty text" name="qtybutton" value="1">
-                                                    </div>
-                                                </td>
-                                                <td class="product-total"><span>$120.00</span></td>
-                                                <td class="product-remove"><a href="#"><i class="las la-trash"></i></a></td>
-                                            </tr>
+                                            {% endfor %}
                                         </tbody>
                                     </table>
                                 </div>
@@ -274,7 +259,7 @@
                                             <a href="#">Continue Shopping</a>
                                         </div>
                                         <div class="cart-clear">
-                                            <button>Update Cart</button>
+                                            {% comment %} <button>Update Cart</button> {% endcomment %}
                                             <a href="#">Clear Cart</a>
                                         </div>
                                     </div>
@@ -283,80 +268,188 @@
                         </form>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-4 col-md-6 col-12">
-                        <div class="cart-calculate-discount-wrap mb-40">
-                            <h4>Calculate shipping </h4>
-                            <div class="calculate-discount-content">
-                                <div class="select-style">
-                                    <select class="select-active">
-                                        <option>Bangladesh</option>
-                                        <option>Bahrain</option>
-                                        <option>Azerbaijan</option>
-                                        <option>Barbados</option>
-                                        <option>Barbados</option>
-                                    </select>
+                <form action="{% url 'place_order' %}" method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <div class="cart-calculate-discount-wrap mb-40">
+                                <h4>Address Information </h4>
+                                <div class="calculate-discount-content">
+                                    <div class="select-style">
+                                        <select class="select-active" name="region">
+                                            <option>Fès-Meknès</option>
+                                            <option selected>Rabat-Salé-Kénitra</option>
+                                            <option>Béni Mellal-Khénifra</option>
+                                            <option>Casablanca-Settat</option>
+                                            <option>Marrakech-Safi</option>
+                                            <option>Drâa-Tafilalet</option>
+                                            <option>Souss-Massa</option>
+                                            <option>Guelmim-Oued Noun</option>
+                                            <option>Laâyoune-Sakia El Hamra</option>
+                                            <option>Dakhla-Oued Ed-Dahab</option>
+                                        </select>
+                                    </div>
+                                    <div class="select-style">
+                                        <select class="select-active" name="city">
+                                            <option selected>Casablanca</option>
+                                            <option>Fès</option>
+                                            <option>Marrakech</option>
+                                            <option>Tangier</option>
+                                            <option>Sale</option>
+                                            <option>Rabat</option>
+                                            <option>Meknès</option>
+                                            <option>Oujda-Angad</option>
+                                            <option>Kenitra</option>
+                                            <option>Agadir</option>
+                                            <option>Tétouan</option>
+                                            <option>Taourirt</option>
+                                            <option>Temara</option>
+                                            <option>Safi</option>
+                                            <option>Khénifra</option>
+                                            <option>El Jadid</option>
+                                            <option>Laâyoune</option>
+                                            <option>Mohammedia</option>
+                                            <option>Kouribga</option>
+                                            <option>Béni Mellal</option>
+                                            <option>Ait Melloul</option>
+                                            <option>Nador</option>
+                                            <option>Taza</option>
+                                            <option>Settat</option>
+                                            <option>Barrechid</option>
+                                            <option>Al Khmissat</option>
+                                            <option>Inezgane</option>
+                                            <option>Ksar El Kebir</option>
+                                            <option>My Drarga</option>
+                                            <option>Larache</option>
+                                            <option>Guelmim</option>
+                                            <option>Berkane</option>
+                                            <option>Ad Dakhla</option>
+                                            <option>Bouskoura</option>
+                                            <option>Al Fqih Ben Çalah</option>
+                                            <option>Oued Zem</option>
+                                            <option>Sidi Slimane</option>
+                                            <option>Errachidia</option>
+                                            <option>Guercif</option>
+                                            <option>Oulad Teïma</option>
+                                            <option>Ben Guerir</option>
+                                            <option>Sefrou</option>
+                                            <option>Fnidq</option>
+                                            <option>Sidi Qacem</option>
+                                            <option>Tiznit</option>
+                                            <option>Moulay Abdallah</option>
+                                            <option>Youssoufia</option>
+                                            <option>Martil</option>
+                                            <option>Aïn Harrouda</option>
+                                            <option>Souq Sebt Oulad Nemma</option>
+                                            <option>Skhirate</option>
+                                            <option>Ouezzane</option>
+                                            <option>Sidi Yahya Zaer</option>
+                                            <option>Al Hoceïma</option>
+                                            <option>M’diq</option>
+                                            <option>Midalt</option>
+                                            <option>Azrou</option>
+                                            <option>El Kelaa des Srarhna</option>
+                                            <option>Ain El Aouda</option>
+                                            <option>Beni Yakhlef</option>
+                                            <option>Ad Darwa</option>
+                                            <option>Al Aaroui</option>
+                                            <option>Qasbat Tadla</option>
+                                            <option>Boujad</option>
+                                            <option>Jerada</option>
+                                            <option>Mrirt</option>
+                                            <option>El Aïoun</option>
+                                            <option>Azemmour</option>
+                                            <option>Temsia</option>
+                                            <option>Zagora</option>
+                                            <option>Ait Ourir</option>
+                                            <option>Aziylal</option>
+                                            <option>Sidi Yahia El Gharb</option>
+                                            <option>Biougra</option>
+                                            <option>Zaïo</option>
+                                            <option>Aguelmous</option>
+                                            <option>El Hajeb</option>
+                                            <option>Zeghanghane</option>
+                                            <option>Imzouren</option>
+                                            <option>Tit Mellil</option>
+                                            <option>Mechraa Bel Ksiri</option>
+                                            <option>Al ’Attawia</option>
+                                            <option>Demnat</option>
+                                            <option>Arfoud</option>
+                                            <option>Tameslouht</option>
+                                            <option>Bou Arfa</option>
+                                            <option>Sidi Smai’il</option>
+                                            <option>Souk et Tnine Jorf el Mellah</option>
+                                            <option>Mehdya</option>
+                                            <option>Aïn Taoujdat</option>
+                                            <option>Chichaoua</option>
+                                            <option>Tahla</option>
+                                            <option>Oulad Yaïch</option>
+                                            <option>Moulay Bousselham</option>
+                                            <option>Iheddadene</option>
+                                            <option>Missour</option>
+                                            <option>Zawyat ech Cheïkh</option>
+                                            <option>Bouknadel</option>
+                                            <option>Oulad Tayeb</option>
+                                            <option>Oulad Barhil</option>
+                                            <option>Bir Jdid</option>
+                                            <option>Tifariti</option>
+                                        </select>
+                                    </div>
+                                    {% comment %} <div class="input-style">
+                                        <input type="text" placeholder="State">
+                                    </div> {% endcomment %}
+                                    <div class="input-style">
+                                        <input type="text" name="zip_code" placeholder="Postcode / ZIP">
+                                    </div>
+                                    {% comment %} <div class="calculate-discount-btn">
+                                        <a class="btn btn-link" href="#">Update</a>
+                                    </div> {% endcomment %}
                                 </div>
-                                <div class="select-style">
-                                    <select class="select-active">
-                                        <option>State / County</option>
-                                        <option>Bahrain</option>
-                                        <option>Azerbaijan</option>
-                                        <option>Barbados</option>
-                                        <option>Barbados</option>
-                                    </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <div class="cart-calculate-discount-wrap mb-40">
+                                {% comment %} <h4>Coupon Discount </h4>
+                                <div class="calculate-discount-content">
+                                    <p>Enter your coupon code if you have one.</p>
+                                    <div class="input-style">
+                                        <input type="text" placeholder="Coupon code">
+                                    </div>
+                                    <div class="calculate-discount-btn">
+                                        <a class="btn btn-link" href="#">Apply Coupon</a>
+                                    </div>
+                                </div> {% endcomment %}
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <div class="grand-total-wrap">
+                                <div class="grand-total-content">
+                                    {% comment %} <h3>Subtotal <span>$180.00</span></h3> {% endcomment %}
+                                     {% comment %} <div class="grand-shipping">
+                                       <span>Shipping</span>
+                                        <ul>
+                                            <li><input type="radio" name="shipping" value="info" checked="checked"><label>Free shipping</label></li>
+                                            <li><input type="radio" name="shipping" value="info" checked="checked"><label>Flat rate: <span>$100.00</span></label></li>
+                                            <li><input type="radio" name="shipping" value="info" checked="checked"><label>Local pickup: <span>$120.00</span></label></li>
+                                        </ul>
+                                    </div>{% endcomment %}
+                                    <div class="shipping-country">
+                                        <p>Shipping to Morocco</p>
+                                    </div>
+                                    <div class="grand-total">
+                                        <h4>Total <span>${{ total }}</span></h4>
+                                    </div>
                                 </div>
-                                <div class="input-style">
-                                    <input type="text" placeholder="Town / City">
-                                </div>
-                                <div class="input-style">
-                                    <input type="text" placeholder="Postcode / ZIP">
-                                </div>
-                                <div class="calculate-discount-btn">
-                                    <a class="btn btn-link" href="#">Update</a>
+                                <div class="grand-total-btn">
+                                    {% comment %} <a class="btn btn-link" href="checkout.html">Proceed to checkout</a> {% endcomment %}
+                                    <button type="submit" class="btn btn-link" style="width: 360px">
+                                        <a class="btn btn-link">PLACE ORDER</a>
+                                    </button>                                    
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 col-12">
-                        <div class="cart-calculate-discount-wrap mb-40">
-                            <h4>Coupon Discount </h4>
-                            <div class="calculate-discount-content">
-                                <p>Enter your coupon code if you have one.</p>
-                                <div class="input-style">
-                                    <input type="text" placeholder="Coupon code">
-                                </div>
-                                <div class="calculate-discount-btn">
-                                    <a class="btn btn-link" href="#">Apply Coupon</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-12">
-                        <div class="grand-total-wrap">
-                            <div class="grand-total-content">
-                                <h3>Subtotal <span>$180.00</span></h3>
-                                <div class="grand-shipping">
-                                    <span>Shipping</span>
-                                    <ul>
-                                        <li><input type="radio" name="shipping" value="info" checked="checked"><label>Free shipping</label></li>
-                                        <li><input type="radio" name="shipping" value="info" checked="checked"><label>Flat rate: <span>$100.00</span></label></li>
-                                        <li><input type="radio" name="shipping" value="info" checked="checked"><label>Local pickup: <span>$120.00</span></label></li>
-                                    </ul>
-                                </div>
-                                <div class="shipping-country">
-                                    <p>Shipping to Bangladesh</p>
-                                </div>
-                                <div class="grand-total">
-                                    <h4>Total <span>$185.00</span></h4>
-                                </div>
-                            </div>
-                            <div class="grand-total-btn">
-                                <a class="btn btn-link" href="checkout.html">Proceed to checkout</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
         <footer class="footer-area section-padding-lr-2 bg-gray">

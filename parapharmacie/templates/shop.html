@@ -224,7 +224,7 @@
                                     <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-75">
                                         <div class="product-wrap" data-aos="fade-up" data-aos-delay="200">
                                             <div class="product-img img-zoom mb-4">
-                                                <a href="product-details.html">
+                                                <a href="{% url 'productdetails' product.id %}">
                                                     {% if product.image %}
                                                     <img class="default-img" src="{{ product.image.url }}" alt="Product Image">
                                                     {% else %}
@@ -265,19 +265,13 @@
                                 <h3 class="sidebar-widget-title">Featured Category </h3>
                                 <div class="shop-category">
                                     <ul>
-                                        <li><a href="shop.html">Fashion</a></li>
-                                        <li><a href="shop.html">Plants</a></li>
-                                        <li><a href="shop.html">Beauty</a></li>
-                                        <li><a href="shop.html">Motor Parts</a></li>
-                                        <li><a href="shop.html">Leather Handmade</a></li>
-                                        <li><a href="shop.html">Beauty</a></li>
-                                        <li><a href="shop.html">Electronic</a></li>
-                                        <li><a href="shop.html">Jewelry</a></li>
-                                        <li><a href="shop.html">Furniture</a></li>
+                                        {% for category in categories %}
+                                        <li><a href="shop.html">{{ category.nom }}</a></li>
+                                        {% endfor %}
                                     </ul>
                                 </div>
                             </div>
-                            <div class="sidebar-widget mb-65" data-aos="fade-up" data-aos-delay="200">
+                            {% comment %} <div class="sidebar-widget mb-65" data-aos="fade-up" data-aos-delay="200">
                                 <h3 class="sidebar-widget-title">Prices</h3>
                                 <div class="price-filter">
                                     <div id="slider-range"></div>
@@ -289,7 +283,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> {% endcomment %}
                             <div class="sidebar-widget mb-75" data-aos="fade-up" data-aos-delay="200">
                                 <h3 class="sidebar-widget-title">Brands</h3>
                                 <div class="sidebar-widget-list">

@@ -178,9 +178,9 @@
                 </div>
             </div>
         </div>
-        <div class="breadcrumb-area breadcrumb-padding-7">
-            <div class="container">
-                <div class="breadcrumb-content text-center">
+       <div class="breadcrumb-area breadcrumb-padding-7">
+             {% comment %}<div class="container">
+                 <div class="breadcrumb-content text-center">
                     <div class="breadcrumb-title breadcrumb-title-responsive">
                         <h2 data-aos="fade-up" data-aos-delay="200">Nike long sleeve Blue mini dress</h2>
                     </div>
@@ -197,8 +197,8 @@
                         </li>
                         <li>SINGLE PRODUCT</li>
                     </ul>
-                </div>
-            </div>
+                </div> 
+            </div>{% endcomment %}
         </div>
         <div class="product-details-area section-padding-lr-2 pb-115">
             <div class="container-fluid">
@@ -249,7 +249,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="product-dec-slider-small product-dec-small-style1">
+                            {% comment %} <div class="product-dec-slider-small product-dec-small-style1">
                                 <div class="product-dec-small active">
                                     <img src="{% static 'images/product-details/small-1.png'  %}" alt="">
                                 </div>
@@ -265,7 +265,7 @@
                                 <div class="product-dec-small">
                                     <img src="{% static 'images/product-details/small-2.png'  %}" alt="">
                                 </div>
-                            </div>
+                            </div> {% endcomment %}
                         </div>
                     </div>
                     <div class="col-lg-5">
@@ -301,7 +301,7 @@
                                     <option>XXL</option>
                                 </select>
                             </div>
-                            <div class="product-details-color" data-aos="fade-up" data-aos-delay="600">
+                            {% comment %} <div class="product-details-color" data-aos="fade-up" data-aos-delay="600">
                                 <span>Select Color</span>
                                 <ul>
                                     <li><a title="White" class="white" href="#">white</a></li>
@@ -310,7 +310,7 @@
                                     <li><a title="Black" class="black" href="#">black</a></li>
                                     <li><a title="Blue" class="blue" href="#">blue</a></li>
                                 </ul>
-                            </div>
+                            </div> {% endcomment %}
                             <div class="product-details-quality-cart" data-aos="fade-up" data-aos-delay="200">
                                 <div class="product-quality">
                                     <input class="cart-plus-minus-box input-text qty text" name="qtybutton" value="1">
@@ -319,7 +319,10 @@
                                     {% csrf_token %}    
                                     <div class="product-details-cart">
                                         <input type="hidden" name="product_id" value="{{ product.id }}">
-                                        <button type="submit">Add to cart</button>
+                                        <button type="submit">
+                                            <a class="btn btn-link" style="border:0; width:300px;">Add to cart</a>
+                                        </button>
+                                        
                                     </div>
                                 </form>
                             </div>
