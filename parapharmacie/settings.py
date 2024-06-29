@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'parapharmacie',
     'myapp',
+    'import_export'
 ]
 
 MIDDLEWARE = [

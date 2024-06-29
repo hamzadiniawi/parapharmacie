@@ -30,7 +30,7 @@ def chatbot(request):
     return render(request, 'chatbot.html')
 
 
-@login_required
+# @login_required
 def cart(request):
     user_id = request.session.get('user_id')
     user = User.objects.get(pk=user_id)
@@ -40,9 +40,9 @@ def cart(request):
     for cart_line in cart_lines:
         cart_line.subtotal = cart_line.produit.prix * cart_line.quantite
     total = sum(cart_line.subtotal for cart_line in cart_lines)
-    response = chatbot(request)  # Call the chatbot view
-    chatbot_content = response.content.decode('utf-8')
-    return render(request, 'cart.html', {'cart_lines': cart_lines, 'total': total, 'chatbot_content': chatbot_content})
+    # response = chatbot(request)  # Call the chatbot view
+    # chatbot_content = response.content.decode('utf-8')
+    return render(request, 'cart.html', {'cart_lines': cart_lines, 'total': total}) #, 'chatbot_content': chatbot_content
 
 
 
@@ -330,7 +330,7 @@ def remove_cart_line(request, cart_line_id):
 
 
 
-@login_required
+# @login_required
 def place_order(request):
     if request.method == 'POST':
         user_id = request.session.get('user_id')
